@@ -364,5 +364,35 @@ body {
 }
 
 .history-text{
-    cursor: context-menu;
+    cursor: context-menu; 
+    background-color: transparent;
+}
+
+.blue{
+    color: blue;
+}
+
+.did-you-mean {
+    padding: 10px 16px;
+}
+
+.did-you-mean-label {
+    color: #9AA0A6;
+    font-size: 13px;
+    margin-bottom: 8px;
+    font-weight: 400;
+}
+
+.did-you-mean-word {
+    color: #fff;      /* Google dark mode blue */
+    font-weight: 500;
+}
+
+.did-you-mean-word:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.did-you-mean-word{
+    background: transparent;
 }

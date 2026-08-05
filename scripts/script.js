@@ -1,17 +1,28 @@
 import { Trie } from "./trie.js";  
-import { words , sites } from "./data.js";
+import { words , sites } from "./data.js"; 
+import { levenshtein } from "./utilities.js";  
 const data = JSON.parse(localStorage.getItem('data')) || [...words] 
 
+
+
 const trie = new Trie()  
-for (let word of data) {
+for (let word of data) { 
+    if(typeof word != 'string') {
+        console.log('imp' , word); 
+        continue 
+        
+    }
     trie.insert(word)
 }
+
+
 
 
 //values 
 const MAX_HISTORY = 10;
 const history = JSON.parse(localStorage.getItem('history')) ||  [] 
 let suggestions = [] 
+let prevSuggestions = [] 
 
 
 const searchBar = document.querySelector(".search-bar");
@@ -25,7 +36,7 @@ loadHistory(history);
 const deletIcons = document.querySelectorAll('.history-delete-btn')
 //showing history
 searchBar.addEventListener("focus", () => {
-    historyContainer.classList.remove("d-none");
+    historyContainer.classList.remove("d-none"); 
 });
 
 //removing the history 
@@ -69,6 +80,28 @@ function loadHistory(data){
     })
     
 }
+function handleTypo(data) {
+    let create = data.slice(0, 1); // Usually only the best match
+
+    historyContainer.innerHTML = "";
+
+    create.forEach(item => {
+        historyContainer.innerHTML += `
+            <div class="did-you-mean">
+                <p class="did-you-mean-label">
+                    Did you mean
+                </p>
+
+                <div class="history-item">
+                    <p class="history-text">
+                        <i class='bx bx-search history-icon'></i>
+                        <span class="did-you-mean-word">${item}</span>
+                    </p>
+                </div>
+            </div>
+        `;
+    });
+}
 
 searchBar.addEventListener('input' , function(){ 
     
@@ -77,8 +110,24 @@ searchBar.addEventListener('input' , function(){
         loadHistory(history) 
         return 
     }
+     
     suggestions = trie.suggest(searchValue) 
-    loadHistory(suggestions)
+
+    if(suggestions.length > 0) {
+        loadHistory(suggestions) 
+        prevSuggestions = suggestions
+    } 
+    else{
+        let data = [] 
+        for(let i = 0 ; i < prevSuggestions.length ; i++) {
+            let word = prevSuggestions[i]  
+            let value = levenshtein(searchValue , word) 
+            if(value <= 3) {
+                data.push(word)
+            }
+        }
+        handleTypo(data)
+    }
     console.log(suggestions);
     
 })
