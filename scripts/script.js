@@ -1,3 +1,8 @@
+import { Trie } from "./trie.js"; 
+
+const trie = new Trie() 
+
+
 const searchBar = document.querySelector(".search-bar");
 const historyContainer = document.querySelector(".search-history");
 const searchContainer = document.querySelector(".search-container");
