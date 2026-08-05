@@ -362,3 +362,7 @@ body {
 .d-none{
     display: none;
 }
+
+.history-text{
+    cursor: context-menu;
+}
