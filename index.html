@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flash Find</title>
     <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" /> 
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
@@ -13,10 +15,74 @@
     </div>
 
     <div class="search-container">
-        <input type="text" class="search-bar"> 
-        <button class="search-btn">
-            ⚡ Search
-        </button>
+        <input
+            type="text"
+            class="search-bar"
+            placeholder="Search anything..."
+        >
+
+        <div class="search-options">
+            <i class='bx bxs-microphone mic-icon'></i>
+
+            <button class="search-btn">
+                <span class="logo">⚡</span>
+                Search
+            </button>
+        </div>
+
+        <div class="search-history d-none">
+            <div class="history-item">
+                <p class="history-text">
+                    <i class='bx bx-history history-icon'></i>
+                    Your last search
+                </p>
+
+                <button class="history-delete-btn d-none">
+                    <i class="fa-solid fa-xmark history-delete-icon"></i>
+                </button>
+            </div>
+
+            <div class="history-item">
+                <p class="history-text">
+                    <i class='bx bx-history history-icon'></i>
+                    Your last search
+                </p>
+
+                <button class="history-delete-btn d-none">
+                    <i class="fa-solid fa-xmark history-delete-icon"></i>
+                </button>
+            </div>
+
+
+            <div class="history-item">
+                <p class="history-text">
+                    <i class='bx bx-history history-icon'></i>
+                    Your last search
+                </p>
+
+                <button class="history-delete-btn d-none">
+                    <i class="fa-solid fa-xmark history-delete-icon"></i>
+                </button>
+            </div>
+
+
+            <div class="history-item">
+                <p class="history-text">
+                    <i class='bx bx-history history-icon'></i>
+                    Your last search
+                </p>
+
+                <button class="history-delete-btn d-none">
+                    <i class="fa-solid fa-xmark history-delete-icon"></i>
+                </button>
+            </div>
+        </div>
     </div>
+
+
+
+
+    
+    <script src="scripts/script.js"></script>
 </body>
 </html>
