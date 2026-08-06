@@ -416,7 +416,18 @@ function loadShortcuts(){
                 <span class="shortcut-text">${item.name}</span>
                 <button class="menu-button">
                     <i class="fa-solid fa-ellipsis-vertical menu-icon"></i>
-                </button>
+                </button> 
+
+                <div class="shortcut-menu d-none ">
+                    <button class="menu-item edit-btn">
+                        Edit shortcut
+                    </button>
+
+                    <button class="menu-item delete-btn">
+                        Remove
+                    </button>
+                </div>
+
             </div>
         `
     })
@@ -424,15 +435,40 @@ function loadShortcuts(){
 
 loadShortcuts()
 
+function closeShortcutMenu(){
+    let menu = document.querySelectorAll('.shortcut-menu') 
+    menu.forEach(item=>{
+        item.classList.add('d-none')
+    })
+}
 
+let currentShortcut ; 
 //menu button for shortcuts 
-
-document.addEventListener('click' , function(event){
-    if(event.target.classList.contains('menu-button') || event.target.classList.contains('menu-icon')) {
-        console.log('hi');
+document.addEventListener('click' , function(event){ 
+    closeShortcutMenu()
+    if(event.target.classList.contains('menu-button') || event.target.classList.contains('menu-icon')) { 
+        closeShortcutMenu() 
+        let item = event.target.closest('.shortcut') 
+        item.querySelector('.shortcut-menu').classList.remove('d-none')
     
     }
-    else if(event.target.closest('.shortcut')){ 
+    else if(event.target.closest('.shortcut-menu')) { 
+        currentShortcut = event.target.closest('.shortcut') 
+        let data = shortcuts.filter(item => item.url == currentShortcut.dataset.url )  
+        console.log('data' , data[0]);  
+        
+        if(event.target.classList.contains('edit-btn')) {
+            modal.classList.remove('hidden') 
+            name.value = data[0].name 
+            url.value = data[0].url 
+            
+        }
+        
+    }
+    else if(event.target.closest('.shortcut')){  
+        if (event.target.closest('.add-shortcut')) {
+            return 
+        }
         let url = event.target.closest('.shortcut').dataset.url
         window.open(url, '_blank')
     }

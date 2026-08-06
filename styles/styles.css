@@ -642,3 +642,48 @@ body {
     background: rgba(34, 36, 42, 0.4) ;  
     
 }
+
+.shortcut-menu{
+    background: black;  
+    border-radius: 6px;
+    width: 120px; 
+    height: 80px;
+    font-size: clamp(10px , 13px , 13px); 
+    
+    position: absolute; 
+    top: 5px; 
+    right: 10px; 
+    overflow: hidden;
+
+    
+
+}
+
+.menu-item{ 
+    width: 100%;
+    padding: 15px 20px 2px; 
+    background: transparent; 
+    border: none;
+    color: white; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    transition: 0.3s; 
+    overflow: hidden; 
+    text-align: left; 
+    display: flex; 
+    align-items: center; 
+    justify-content: start;
+}
+
+.menu-item:hover{
+    background: rgba(136, 145, 173, 0.4) ;  
+    overflow: hidden; 
+
+}
+
+.edit-btn{
+    margin-top: 4px;
+}
+
+.remove-btn{
+    margin-bottom: 4px;
+}
