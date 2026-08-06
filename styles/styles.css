@@ -249,7 +249,8 @@ body {
     background:#303134;
     border-radius:20px;
     overflow:hidden; 
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;  
+    z-index: 100 ; 
 
 }
 
@@ -507,10 +508,34 @@ body {
 
 
 .shortcuts{
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(5, 110px); /* max 5 items */
     justify-content: center;
-    align-items: center; 
-    gap: 5px; 
+    gap: 12px;
+    margin-top: 30px;
+}
+
+/* Tablet */
+@media (max-width: 768px){
+    .shortcuts{
+        grid-template-columns: repeat(4, 95px);
+        gap: 10px;
+    }
+}
+
+/* Large phones */
+@media (max-width: 600px){
+    .shortcuts{
+        grid-template-columns: repeat(3, 95px);
+    }
+}
+
+/* Small phones */
+@media (max-width: 400px){
+    .shortcuts{
+        grid-template-columns: repeat(3, 95px);
+    } 
+
 }
 
 .shortcut { 
@@ -518,10 +543,11 @@ body {
     display: flex; 
     flex-direction: column; 
     align-items: center;
-    padding: 12px 24px; 
+    padding: 15px 30px; 
     border-radius: 6px; 
     transition: .3s;
-    gap: 10px;
+    gap: 10px; 
+    position: relative;
 
 }
 
@@ -530,19 +556,25 @@ body {
 }
 
 .shortcut-text{ 
-    font-size: 13px;
+    font-size: clamp(10px , 13px , 13px);
     color: #e8eaed; 
+    text-align:center;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 #cancelBtn{
     border: 2px solid #155271;   
     font-size: 13px;
     color: #9BB7E5;
-    border-radius: 50px;
+    border-radius: 50px; 
+    font-weight: 550;
 }
 
 #cancelBtn:hover{
-    background: #444;
+    background: #444; 
     
 }
 
@@ -551,5 +583,62 @@ body {
     border-radius: 50px; 
     padding: 10px 25px;  
     color: #b1b0b0;
+    font-weight: 550;
     /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; */
+}
+
+.shortcut-container{
+    display: contents; 
+
+}
+
+.active-btn{
+    background: #A8C7FA !important;
+    color: #103778 !important;
+}
+
+.shortcut-icon{
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    object-fit:contain;
+}
+
+.shortcut-btn{
+    width:48px;
+    height:48px;
+    border:none;
+    border-radius:50%;
+    background:#202124;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    cursor:pointer;
+}
+
+.shortcut-icon{
+    width:40px;
+    height:40px;
+}
+
+.d-none{
+    display: none !important;
+}
+
+.menu-button{
+    position: absolute; 
+    top: 8px; 
+    right: 7px;    
+    color: white; 
+    font-size: 15px; 
+    background: transparent ; 
+    border: none ;
+    padding: 5px 12px; 
+    cursor: pointer; 
+    border-radius: 50%;
+} 
+
+.menu-button:hover{
+    background: rgba(34, 36, 42, 0.4) ;  
+    
 }

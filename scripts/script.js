@@ -3,8 +3,6 @@ import { words , sites } from "./data.js";
 import { levenshtein } from "./utilities.js";  
 let data = JSON.parse(localStorage.getItem('data')) || [...words] 
 
-
-
 const trie = new Trie()  
 for (let word of data) { 
     if(typeof word != 'string') {
@@ -16,13 +14,12 @@ for (let word of data) {
 }
 
 
-
-
 //values 
 const MAX_HISTORY = 50;
 let history = JSON.parse(localStorage.getItem('history')) ||  [] 
 let suggestions = [] 
-let prevSuggestions = [] 
+let prevSuggestions = []  
+let shortcuts = JSON.parse(localStorage.getItem('shortcuts')) || [] 
 
 
 const searchBar = document.querySelector(".search-bar");
@@ -203,7 +200,7 @@ searchBtn.addEventListener('click' , function(){
 
         return 
     }
-    search(value) //search
+    search(searchValue) //search
     
         
 })
@@ -309,7 +306,7 @@ const modal = document.querySelector(".modal-overlay");
 const cancelBtn = document.querySelector("#cancelBtn");
 const saveBtn = document.querySelector("#saveBtn");
 
-addShortcut.addEventListener("click", () => {
+addShortcut.addEventListener("click", () => { 
     modal.classList.remove("hidden");
 });
 
@@ -322,17 +319,121 @@ modal.addEventListener("click", (e) => {
         modal.classList.add("hidden");
     }
 });
+const name = document.getElementById('shortcutName')
+const url = document.getElementById('shortcutUrl')
+
+name.addEventListener('input' , function(){
+    if(name.value && url.value) {
+        saveBtn.classList.add('active-btn')
+    }
+    else{
+        saveBtn.classList.remove('active-btn')
+    }
+})
+
+url.addEventListener('input' , function(){
+    if(name.value && url.value) {
+        saveBtn.classList.add('active-btn')
+    }
+    else{
+        saveBtn.classList.remove('active-btn')
+    }
+})
+
+let shortcutContainer = document.querySelector('.shortcut-container') 
 
 saveBtn.addEventListener("click", () => {
-    
-    const name = document.querySelector("#shortcutName").value;
-    const url = document.querySelector("#shortcutUrl").value;
-    if(!name || !url) {
-        console.log('no');
-        
-        return 
-    }
-    console.log(name, url);
 
+    let website = url.value.trim();
+    let shortcutName = name.value.trim();
+
+    if (!shortcutName || !website) {
+        return;
+    }
+
+    // Add https:// if missing
+    if (!/^https?:\/\//i.test(website)) {
+        website = "https://" + website;
+    }
+
+    let parsedUrl;
+
+    try {
+        parsedUrl = new URL(website);
+    } catch {
+        alert("Please enter a valid URL.");
+        return;
+    }
+
+    // Basic domain validation
+    const hostname = parsedUrl.hostname;
+
+    if (
+        hostname.length < 3 ||
+        hostname.includes(" ") ||
+        !hostname.includes(".")
+    ) {
+        alert("Please enter a valid website.");
+        return;
+    }
+
+    shortcuts.push({
+        name: shortcutName,
+        url: parsedUrl.href
+    });
+
+    localStorage.setItem("shortcuts", JSON.stringify(shortcuts));
+
+    loadShortcuts();
+
+    name.value = "";
+    url.value = "";
+    saveBtn.classList.remove("active-btn");
     modal.classList.add("hidden");
 });
+
+
+//load all short cuts 
+function loadShortcuts(){
+
+    if (shortcuts.length >= 10) {
+        addShortcut.classList.add("d-none"); 
+    } else {
+        addShortcut.classList.remove("d-none");
+    }
+    console.log(shortcuts);
+    
+
+    shortcutContainer.innerHTML = '' 
+
+    shortcuts.forEach(item =>{ 
+        const favicon = `https://www.google.com/s2/favicons?domain=${item.url}&sz=64`;  
+
+        
+        shortcutContainer.innerHTML += `
+            <div class="shortcut" data-url="${item.url}">
+                <img src="${favicon}" class="shortcut-icon" alt="${item.name}">
+                <span class="shortcut-text">${item.name}</span>
+                <button class="menu-button">
+                    <i class="fa-solid fa-ellipsis-vertical menu-icon"></i>
+                </button>
+            </div>
+        `
+    })
+}
+
+loadShortcuts()
+
+
+//menu button for shortcuts 
+
+document.addEventListener('click' , function(event){
+    if(event.target.classList.contains('menu-button') || event.target.classList.contains('menu-icon')) {
+        console.log('hi');
+    
+    }
+    else if(event.target.closest('.shortcut')){ 
+        let url = event.target.closest('.shortcut').dataset.url
+        window.open(url, '_blank')
+    }
+})
