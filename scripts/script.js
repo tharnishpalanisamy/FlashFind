@@ -13,13 +13,13 @@ for (let word of data) {
     trie.insert(word)
 }
 
-
 //values 
 const MAX_HISTORY = 50;
 let history = JSON.parse(localStorage.getItem('history')) ||  [] 
 let suggestions = [] 
 let prevSuggestions = []  
 let shortcuts = JSON.parse(localStorage.getItem('shortcuts')) || [] 
+let editIndex = -1;
 
 
 const searchBar = document.querySelector(".search-bar");
@@ -342,8 +342,7 @@ url.addEventListener('input' , function(){
 
 let shortcutContainer = document.querySelector('.shortcut-container') 
 
-saveBtn.addEventListener("click", () => {
-
+function saveShortcut(){
     let website = url.value.trim();
     let shortcutName = name.value.trim();
 
@@ -377,10 +376,17 @@ saveBtn.addEventListener("click", () => {
         return;
     }
 
-    shortcuts.push({
-        name: shortcutName,
-        url: parsedUrl.href
-    });
+    const shortcut = {
+    name: shortcutName,
+    url: parsedUrl.href
+    };
+
+    if (editIndex === -1) {
+        shortcuts.push(shortcut);    
+    } else {
+        shortcuts[editIndex] = shortcut; 
+        editIndex = -1;
+    }
 
     localStorage.setItem("shortcuts", JSON.stringify(shortcuts));
 
@@ -390,7 +396,9 @@ saveBtn.addEventListener("click", () => {
     url.value = "";
     saveBtn.classList.remove("active-btn");
     modal.classList.add("hidden");
-});
+}
+
+saveBtn.addEventListener("click", saveShortcut); 
 
 
 //load all short cuts 
@@ -423,7 +431,7 @@ function loadShortcuts(){
                         Edit shortcut
                     </button>
 
-                    <button class="menu-item delete-btn">
+                    <button class="menu-item delete-btn" data-url = '${item.url}'>
                         Remove
                     </button>
                 </div>
@@ -457,10 +465,21 @@ document.addEventListener('click' , function(event){
         let data = shortcuts.filter(item => item.url == currentShortcut.dataset.url )  
         console.log('data' , data[0]);  
         
-        if(event.target.classList.contains('edit-btn')) {
-            modal.classList.remove('hidden') 
-            name.value = data[0].name 
-            url.value = data[0].url 
+        if (event.target.classList.contains("edit-btn")) {
+            modal.classList.remove("hidden");
+
+            editIndex = shortcuts.findIndex(
+                item => item.url === currentShortcut.dataset.url
+            );
+
+            name.value = shortcuts[editIndex].name;
+            url.value = shortcuts[editIndex].url;
+        }
+        else if(event.target.classList.contains("delete-btn")) {
+            
+            shortcuts = shortcuts.filter(item => item.url !== event.target.dataset.url)  
+            localStorage.setItem('shortcuts' , JSON.stringify(shortcuts)) 
+            loadShortcuts() 
             
         }
         
