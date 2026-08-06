@@ -687,3 +687,65 @@ body {
 .remove-btn{
     margin-bottom: 4px;
 }
+
+/* .search-btn{
+    animation: glow 1.5s infinite; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    padding-left: 5px;
+}
+
+@keyframes glow{
+    0%,100%{
+        box-shadow:0 0 10px rgba(255,170,0,.25);
+    }
+    50%{
+        box-shadow:0 0 18px rgba(255,170,0,.6);
+    }
+} */
+
+
+@media (max-width:480px){
+
+    .search-btn{
+        width:46px;
+        height:46px;
+        border-radius:50%;
+
+        text-indent:-9999px;
+        overflow:hidden;
+
+        display:flex;
+        justify-content:center;
+        align-items:center;
+    }
+
+    .logo{
+        position:absolute;
+        inset:0;
+
+        display:flex;
+        justify-content:center;
+        align-items:center;
+
+        text-indent:0;
+        font-size:22px;
+        color:#fff;
+        background:transparent;
+        z-index:2;
+    }
+
+    .search-btn::before{
+        opacity:1;
+        border-radius:50%;
+    }
+
+    .search-btn::after{
+        border-radius:50%;
+    }
+}
+
+.menu-button{
+    transition: 0.5s;
+}

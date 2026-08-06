@@ -303,6 +303,9 @@ voiceSearch.addEventListener("click", () => {
 const addShortcut = document.querySelector(".add-shortcut");
 const modal = document.querySelector(".modal-overlay");
 
+const name = document.getElementById('shortcutName')
+const url = document.getElementById('shortcutUrl')
+
 const cancelBtn = document.querySelector("#cancelBtn");
 const saveBtn = document.querySelector("#saveBtn");
 
@@ -319,8 +322,7 @@ modal.addEventListener("click", (e) => {
         modal.classList.add("hidden");
     }
 });
-const name = document.getElementById('shortcutName')
-const url = document.getElementById('shortcutUrl')
+
 
 name.addEventListener('input' , function(){
     if(name.value && url.value) {
@@ -465,7 +467,8 @@ document.addEventListener('click' , function(event){
         let data = shortcuts.filter(item => item.url == currentShortcut.dataset.url )  
         console.log('data' , data[0]);  
         
-        if (event.target.classList.contains("edit-btn")) {
+        if (event.target.classList.contains("edit-btn")) { 
+            saveBtn.classList.add('active-btn')
             modal.classList.remove("hidden");
 
             editIndex = shortcuts.findIndex(
@@ -473,7 +476,15 @@ document.addEventListener('click' , function(event){
             );
 
             name.value = shortcuts[editIndex].name;
-            url.value = shortcuts[editIndex].url;
+            url.value = shortcuts[editIndex].url; 
+
+            document.addEventListener('click' , function(event){
+                if(!event.target.closest('.shortcut-modal')) {
+                    name.value = '' 
+                    url.value = ''
+                }
+                
+            })
         }
         else if(event.target.classList.contains("delete-btn")) {
             
@@ -491,4 +502,21 @@ document.addEventListener('click' , function(event){
         let url = event.target.closest('.shortcut').dataset.url
         window.open(url, '_blank')
     }
+})
+
+
+//shortcut menu  
+
+document.addEventListener('mouseover' , function(event){
+    document.querySelectorAll('.menu-button').forEach(item=>{
+            item.classList.add('d-none')
+        })
+    if(event.target.closest('.shortcut')) { 
+        document.querySelectorAll('.menu-button').forEach(item=>{
+            item.classList.add('d-none')
+        })
+        event.target.closest('.shortcut').querySelector('.menu-button').classList.remove('d-none')
+        
+    }
+    
 })
