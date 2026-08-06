@@ -2,11 +2,12 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background: #22242A;
+    
 }
 
 body {
     font-family: Arial, sans-serif;
+    background: #22242A;
 }
 
 .brand {
@@ -395,4 +396,141 @@ body {
 
 .did-you-mean-word{
     background: transparent;
+}
+
+.listening {
+    color:#FFD54A;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+
+/* Modal */
+.modal-overlay.hidden{
+    display:none;
+}
+
+.modal-overlay{
+    position:fixed;
+    inset:0;
+
+    background:rgba(0,0,0,.45);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:1000; 
+}
+
+.shortcut-modal{
+
+    width:420px;
+    background:#2d2d2d;
+    color:white;
+    box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.9) 0px 0px 0px 1px;
+    border-radius:12px;
+    padding:25px;
+}
+
+.shortcut-modal h3{ 
+    background: transparent;
+    margin-bottom:25px;
+}
+
+.input-group{ 
+    background-color: transparent;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    margin-bottom:18px;
+}
+
+.input-group input{
+
+    padding:12px;
+    border:none;
+    border-radius:6px;
+
+    background:#444;
+    color:white;
+}
+
+.buttons{
+    display:flex;
+    justify-content:flex-end;
+    gap:10px;
+    margin-top:20px;
+    background: #2d2d2d;
+}
+
+.buttons button{ 
+    background: #2d2d2d;
+    padding:10px 20px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    color: white;
+}
+
+.input-group label{
+    background: transparent;
+}
+
+
+/* shortcuts */
+
+.add-button{
+    border: none; 
+    cursor: pointer ;  
+    background-color: transparent;
+}
+
+.add-icon{
+    padding: 25px;
+    background-color: #4D5156;
+    border-radius: 50%;   
+    color: #FFFFFF; 
+    width: 10px; 
+    height: 10px; 
+    font-size: 16px;
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    cursor: pointer ;
+
+}
+
+
+.shortcuts{
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    gap: 5px; 
+    padding: 0px 50px;
+}
+
+.shortcut { 
+    cursor: pointer ;    
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+    padding: 12px 24px; 
+    border-radius: 6px; 
+    transition: .3s;
+    gap: 10px;
+
+}
+
+.shortcut:hover{
+    background: rgba(77, 81, 86, 0.4); 
+}
+
+.shortcut-text{ 
+    font-size: 13px;
+    color: #e8eaed; 
 }

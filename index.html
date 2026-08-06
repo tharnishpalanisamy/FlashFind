@@ -7,7 +7,8 @@
     <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" /> 
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    <link rel="stylesheet" href="styles/styles.css">
+    
+    <link rel="stylesheet" href="styles/styles.css"> 
 </head>
 <body>
     <div class="brand">
@@ -33,7 +34,36 @@
         <div class="search-history d-none"></div>
     </div>
 
+    <div class="shortcuts">
+    <div class="shortcut">
+        <button class="add-button"><i class="fa-solid fa-plus icon-plus icon add-icon  add-icon"></i></button> 
+        <span class="shortcut-text">Add Shortcut</span>
+    </div> 
+</div>
 
+<!-- Modal -->
+<div class="modal-overlay hidden">
+    <div class="shortcut-modal">
+
+        <h3>Add Shortcut</h3>
+
+        <div class="input-group">
+            <label>Name</label>
+            <input type="text" id="shortcutName" placeholder="ChatGPT">
+        </div>
+
+        <div class="input-group">
+            <label>URL</label>
+            <input type="text" id="shortcutUrl" placeholder="https://chatgpt.com">
+        </div>
+
+        <div class="buttons">
+            <button id="cancelBtn">Cancel</button>
+            <button id="saveBtn">Done</button>
+        </div>
+
+    </div>
+</div>
 
 
     

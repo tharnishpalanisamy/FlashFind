@@ -1,7 +1,7 @@
 import { Trie } from "./trie.js";  
 import { words , sites } from "./data.js"; 
 import { levenshtein } from "./utilities.js";  
-const data = JSON.parse(localStorage.getItem('data')) || [...words] 
+let data = JSON.parse(localStorage.getItem('data')) || [...words] 
 
 
 
@@ -19,8 +19,8 @@ for (let word of data) {
 
 
 //values 
-const MAX_HISTORY = 10;
-const history = JSON.parse(localStorage.getItem('history')) ||  [] 
+const MAX_HISTORY = 50;
+let history = JSON.parse(localStorage.getItem('history')) ||  [] 
 let suggestions = [] 
 let prevSuggestions = [] 
 
@@ -34,20 +34,28 @@ loadHistory(history);
 
 //icons
 const deletIcons = document.querySelectorAll('.history-delete-btn')
-//showing history
-searchBar.addEventListener("focus", () => {
-    historyContainer.classList.remove("d-none"); 
-});
+
+
 
 //removing the history 
 document.addEventListener("click", (event) => {
     if (!searchContainer.contains(event.target)) {
-        deletIcons.forEach(btn=> btn.classList.add('d-none')) 
+        document.querySelectorAll('.history-delete-btn').forEach(btn => {
+            btn.classList.add('d-none');
+        });
         loadHistory(history)
         historyContainer.classList.add("d-none");
     }
     else if(event.target.closest('.history-delete-btn')) { 
-        event.target.closest('.history-item').remove() 
+        let value = event.target.closest('.history-item').querySelector('.history-text').textContent.trim() 
+        history = history.filter(val => val != value)   
+        event.target.closest('.history-item').remove()  
+        localStorage.setItem('history' , JSON.stringify(history))  
+        data = data.filter(val => val != value) 
+        localStorage.setItem('data' , JSON.stringify(data))   
+        loadHistory(history) 
+        
+
     }
 });
 
@@ -71,10 +79,10 @@ function loadHistory(data){
                 <i class='bx ${history.includes(item) ? 'bx-history' : 'bx-search' }   history-icon'></i>
                 ${item}
             </p>
-
-            <button class="history-delete-btn d-none">
-                <i class="fa-solid fa-xmark history-delete-icon"></i>
-            </button>
+            ${history.includes(item) ? `<button class="history-delete-btn d-none">
+                                            <i class="fa-solid fa-xmark history-delete-icon"></i>
+                                        </button> ` : ''   }
+            
         </div>
         `
     })
@@ -104,7 +112,7 @@ function handleTypo(data) {
 }
 
 searchBar.addEventListener('input' , function(){ 
-    
+    historyContainer.classList.remove('d-none')
     const searchValue = searchBar.value.trim().toLowerCase()  
     if(searchValue.length ==0) { 
         loadHistory(history) 
@@ -132,31 +140,22 @@ searchBar.addEventListener('input' , function(){
     
 })
 
-
-//search button 
-
-searchBtn.addEventListener('click' , function(){
-    let searchValue = searchBar.value.trim()  
-
-    if(!searchValue) { 
-
-        return 
-    }
-
-    const index = history.indexOf(searchValue);
+//search function 
+function search(value){
+    const index = history.indexOf(value);
 
     if (index !== -1) {
         history.splice(index, 1);
     }
 
-    history.unshift(searchValue);
+    history.unshift(value);
 
     if (history.length > MAX_HISTORY) {
         history.pop();
     }
 
-    trie.insert(searchValue) 
-    data.push(searchValue) 
+    trie.insert(value) 
+    data.push(value) 
     localStorage.setItem('data' , JSON.stringify(data) )
     console.log(history);  
     localStorage.setItem('history' , JSON.stringify(history)) 
@@ -164,7 +163,7 @@ searchBtn.addEventListener('click' , function(){
 
 
     //opening the search result   
-    const keywords = searchValue.toLowerCase().split(" ");
+    const keywords = value.toLowerCase().split(" ");
 
         for (let i = 0; i < keywords.length; i++) {
             const word = keywords[i];
@@ -192,7 +191,20 @@ searchBtn.addEventListener('click' , function(){
             }
         }
 
-    window.open(`https://www.google.com/search?q=${encodeURIComponent(searchValue)}`);
+    window.open(`https://www.google.com/search?q=${encodeURIComponent(value)}`);
+}
+
+//search button 
+
+searchBtn.addEventListener('click' , function(){
+    let searchValue = searchBar.value.trim()  
+
+    if(!searchValue) { 
+
+        return 
+    }
+    search(value) //search
+    
         
 })
 
@@ -207,55 +219,116 @@ document.addEventListener('click' , function(event){
         }
         let value = event.target.closest('.history-item').querySelector('.history-text').textContent.trim()
         
-        const index = history.indexOf(value);
-
-        if (index !== -1) {
-            history.splice(index, 1);
-        }
-
-        history.unshift(value);
-
-        if (history.length > MAX_HISTORY) {
-            history.pop();
-        } 
-
-        trie.insert(value)
-        // console.log(history);  
-        localStorage.setItem('history' , JSON.stringify(history)) 
-        loadHistory(suggestions) 
-
-
-        //opening the search result  
-        const keywords = value.toLowerCase().split(" ");
-
-        for (let i = 0; i < keywords.length; i++) {
-            const word = keywords[i];
-
-            if (sites[word]) {
-                let query = '' 
-                for (let val of keywords) { 
-                    if (val == word) {
-                        continue 
-                    }
-                    else{
-                        query += val + ' ' 
-                    }
-                }
-                let url ; 
-                if (query) {
-                    url = sites[word].query + encodeURIComponent(query);
-                }
-                else{
-                    url = sites[word].home 
-                }
-
-                window.open(url, "_blank");
-                return;
-            }
-        }
-
-        window.open(`https://www.google.com/search?q=${encodeURIComponent(value)}`);
+        search(value)
         
                 
     }
 })
+
+
+//showing history and suggestion on clicking search bar and  after comming back from another page 
+function showSuggestions() {
+    historyContainer.classList.remove("d-none");
+
+    if (searchBar.value.trim() === "") {
+        loadHistory(history);
+    } else {
+        suggestions = trie.suggest(searchBar.value.trim().toLowerCase());
+        loadHistory(suggestions);
+    }
+}
+
+searchBar.addEventListener("focus", showSuggestions); 
+searchBar.addEventListener("click", showSuggestions);
+
+
+
+//voice search 
+const voiceSearch = document.querySelector(".mic-icon");
+
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+if (!SpeechRecognition) {
+    alert("Voice search is not supported in this browser.");
+}
+
+const recognition = new SpeechRecognition();
+
+recognition.lang = "en-US";
+recognition.interimResults = false;
+recognition.maxAlternatives = 1;
+
+let isListening = false;
+
+// Fires when speech is recognized
+recognition.addEventListener("result", (event) => {
+    const text = event.results[0][0].transcript;
+
+    searchBar.value = text;
+    searchBar.dispatchEvent(new Event("input"));
+
+    // Optional: automatically search
+    // searchBtn.click();
+});
+
+
+// Browser actually started listening
+recognition.addEventListener("start", () => {
+    isListening = true;
+    voiceSearch.classList.add("listening");
+});
+
+// Browser stopped listening
+recognition.addEventListener("end", () => {
+    isListening = false;
+    voiceSearch.classList.remove("listening");
+});
+
+// Handle errors
+recognition.addEventListener("error", (event) => {
+    console.log(event.error);
+    isListening = false;
+    voiceSearch.classList.remove("listening");
+});
+
+// Toggle
+voiceSearch.addEventListener("click", () => {
+    if (isListening) {
+        recognition.stop();
+    } else {
+        recognition.start();
+    }
+});
+
+
+
+//add shortcut
+const addShortcut = document.querySelector(".shortcut");
+const modal = document.querySelector(".modal-overlay");
+
+const cancelBtn = document.querySelector("#cancelBtn");
+const saveBtn = document.querySelector("#saveBtn");
+
+addShortcut.addEventListener("click", () => {
+    modal.classList.remove("hidden");
+});
+
+cancelBtn.addEventListener("click", () => {
+    modal.classList.add("hidden");
+});
+
+modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+        modal.classList.add("hidden");
+    }
+});
+
+saveBtn.addEventListener("click", () => {
+
+    const name = document.querySelector("#shortcutName").value;
+    const url = document.querySelector("#shortcutUrl").value;
+
+    console.log(name, url);
+
+    modal.classList.add("hidden");
+});

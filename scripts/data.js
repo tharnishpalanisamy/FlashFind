@@ -277,7 +277,7 @@ export const sites = {
     facebook: {
         name: "Facebook",
         home: "https://www.facebook.com/",
-        query: "https://www.facebook.com/search/top/?q="
+        query: "https://www.facebook.com/"
     },
 
     linkedin: {
