@@ -303,7 +303,7 @@ voiceSearch.addEventListener("click", () => {
 
 
 //add shortcut
-const addShortcut = document.querySelector(".shortcut");
+const addShortcut = document.querySelector(".add-shortcut");
 const modal = document.querySelector(".modal-overlay");
 
 const cancelBtn = document.querySelector("#cancelBtn");
@@ -324,10 +324,14 @@ modal.addEventListener("click", (e) => {
 });
 
 saveBtn.addEventListener("click", () => {
-
+    
     const name = document.querySelector("#shortcutName").value;
     const url = document.querySelector("#shortcutUrl").value;
-
+    if(!name || !url) {
+        console.log('no');
+        
+        return 
+    }
     console.log(name, url);
 
     modal.classList.add("hidden");
