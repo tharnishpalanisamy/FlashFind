@@ -759,9 +759,10 @@ body {
     cursor: pointer;
 }
 
-.shortcut:active {
+.shortcut:active  {
     cursor: grabbing;
 }
+
 
 .dragging {
     opacity: .4;
@@ -802,3 +803,4 @@ body {
 .toast {
     box-shadow: none !important;
 }
+

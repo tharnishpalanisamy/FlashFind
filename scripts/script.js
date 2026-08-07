@@ -248,7 +248,6 @@ searchBar.addEventListener('keydown' , function(event) {
         if(itemIndex > min ) {
             itemIndex = 0 
         }
-        console.log(history[itemIndex]);
         activateElement(itemIndex) 
         
     }
@@ -599,11 +598,9 @@ document.addEventListener('click' , function(event){
         let data = shortcuts.filter(item => item.url == currentShortcut.dataset.url )  
         
         if (event.target.classList.contains("edit-btn")) {  
-            console.log('hi');
             
             saveBtn.classList.add('active-btn')
             modal.classList.remove("hidden");
-            console.log(currentShortcut.dataset.url);
             
             editIndex = shortcuts.findIndex(
                 item => item.url === currentShortcut.dataset.url
