@@ -264,7 +264,7 @@ body {
     background:transparent;
 }
 
-.history-item:hover{
+.history-item:hover , .history-active{
 
     background:#3b3d42;
 }

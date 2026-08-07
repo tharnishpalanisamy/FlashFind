@@ -13,7 +13,7 @@ for (let word of data) {
 //values 
 const MAX_HISTORY = 50;
 let history = JSON.parse(localStorage.getItem('history')) ||  [] 
-let suggestions = [] 
+let suggestions = history.slice(0,10) 
 let prevSuggestions = []  
 let shortcuts = JSON.parse(localStorage.getItem('shortcuts')) || [] 
 let editIndex = -1;
@@ -122,7 +122,8 @@ function handleTypo(data) {
     });
 }
 
-searchBar.addEventListener('input' , function(){ 
+searchBar.addEventListener('input' , function(){  
+    itemIndex = -1 
     historyContainer.classList.remove('d-none')
     const searchValue = searchBar.value.trim().toLowerCase()  
     if(searchValue.length ==0) { 
@@ -216,19 +217,42 @@ searchForm.addEventListener("submit", (e) => {
 });
 
 
-// searchBar.addEventListener('keydown' , function(event) { 
-//     //ArrowUp   ArrowDown 
+function activateElement(curIndex){
+    let data = document.querySelectorAll('.history-item')  
 
-//     if(event.key == 'Enter') {
-//         searchBtn.click()  
-//     } 
+    data.forEach((item,index) =>{
+        if (index === curIndex ) {
+            item.classList.add('history-active') 
+            searchBar.value = item.innerText
+        }
+        else{
+            item.classList.remove('history-active')
+        }
+    })
+}
 
-//     else if(event.key == 'ArrowUp') {
+let itemIndex = -1 
+searchBar.addEventListener('keydown' , function(event) { 
+    //ArrowUp   ArrowDown 
+
+    if(event.key == 'ArrowUp') { 
+        if(itemIndex > 0) { 
+            itemIndex --  
+            activateElement(itemIndex) 
+        }
+    }
+    else if(event.key == 'ArrowDown') {  
+
+        let min = suggestions.length > 8 ? 8 : suggestions.length-1
+        itemIndex ++  
+        if(itemIndex > min ) {
+            itemIndex = 0 
+        }
+        console.log(history[itemIndex]);
+        activateElement(itemIndex) 
         
-//     }
-//     else if(event.key == 'ArrowDown0') {
-//     }
-// } ) 
+    }
+} ) 
 
 // searchBtn.addEventListener('click' , function(){
 //     let searchValue = searchBar.value.trim()  
@@ -282,7 +306,7 @@ const voiceSearch = document.querySelector(".mic-icon");
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
 if (!SpeechRecognition) {
-    toastr.danger("Voice search is not supported in this browser.");
+    toastr.error("Voice search is not supported in this browser.");
 }
 
 const recognition = new SpeechRecognition();
@@ -352,7 +376,7 @@ addShortcut.addEventListener("click", () => {
 }); 
 
 //handle enter to save shortcut 
-document.addEventListener('keydown' , function(event) {
+modal.addEventListener('keydown' , function(event) {
     if(event.key == 'Enter') { 
         
         saveShortcut() 
@@ -455,7 +479,7 @@ function saveShortcut(){
         toastr.success("Shortcut updated successfully!");
         editIndex = -1;
     }
-    
+
 
     localStorage.setItem("shortcuts", JSON.stringify(shortcuts));
 
@@ -597,8 +621,8 @@ document.addEventListener('click' , function(event){
             // })
         }
         else if(event.target.classList.contains("delete-btn")) {
-            
             shortcuts = shortcuts.filter(item => item.url !== event.target.dataset.url)  
+            toastr.success('shortcut deleted')
             localStorage.setItem('shortcuts' , JSON.stringify(shortcuts)) 
             loadShortcuts() 
             
