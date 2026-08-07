@@ -192,6 +192,22 @@ function search(value){
 
 //search button 
 
+searchBar.addEventListener('keydown' , function(event) { 
+    //ArrowUp   ArrowDown 
+
+    if(event.key == 'Enter') {
+        searchBtn.click()  
+    } 
+
+    else if(event.key == 'ArrowUp') {
+        console.log('hi');
+        
+    }
+    else if(event.key == 'ArrowDown0') {
+        console.log('bye')
+    }
+} ) 
+
 searchBtn.addEventListener('click' , function(){
     let searchValue = searchBar.value.trim()  
 
@@ -250,7 +266,7 @@ if (!SpeechRecognition) {
 
 const recognition = new SpeechRecognition();
 
-recognition.lang = "ta";
+recognition.lang = "en-US";
 recognition.interimResults = false;
 recognition.maxAlternatives = 1;
 
@@ -308,9 +324,17 @@ const url = document.getElementById('shortcutUrl')
 const cancelBtn = document.querySelector("#cancelBtn");
 const saveBtn = document.querySelector("#saveBtn");
 
-addShortcut.addEventListener("click", () => { 
+addShortcut.addEventListener("click", () => {  
     modal.classList.remove("hidden");
-});
+}); 
+
+//handle enter to save shortcut 
+document.addEventListener('keydown' , function(event) {
+    if(event.key == 'Enter') {
+        saveShortcut() 
+    }
+    
+})
 
 cancelBtn.addEventListener("click", () => {
     modal.classList.add("hidden");
