@@ -341,7 +341,9 @@ addShortcut.addEventListener("click", () => {
 
 //handle enter to save shortcut 
 document.addEventListener('keydown' , function(event) {
-    if(event.key == 'Enter') {
+    if(event.key == 'Enter') { 
+        console.log('hi');
+        
         saveShortcut() 
     }
     
