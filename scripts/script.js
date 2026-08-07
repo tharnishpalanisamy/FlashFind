@@ -191,34 +191,45 @@ function search(value){
 }
 
 //search button 
+const searchForm = document.getElementById("form");
 
-searchBar.addEventListener('keydown' , function(event) { 
-    //ArrowUp   ArrowDown 
+searchForm.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-    if(event.key == 'Enter') {
-        searchBtn.click()  
-    } 
+    const searchValue = searchBar.value.trim();
+    if (!searchValue) return;
 
-    else if(event.key == 'ArrowUp') {
-        console.log('hi');
+    search(searchValue);
+});
+
+
+// searchBar.addEventListener('keydown' , function(event) { 
+//     //ArrowUp   ArrowDown 
+
+//     if(event.key == 'Enter') {
+//         searchBtn.click()  
+//     } 
+
+//     else if(event.key == 'ArrowUp') {
+//         console.log('hi');
         
-    }
-    else if(event.key == 'ArrowDown0') {
-        console.log('bye')
-    }
-} ) 
+//     }
+//     else if(event.key == 'ArrowDown0') {
+//         console.log('bye')
+//     }
+// } ) 
 
-searchBtn.addEventListener('click' , function(){
-    let searchValue = searchBar.value.trim()  
+// searchBtn.addEventListener('click' , function(){
+//     let searchValue = searchBar.value.trim()  
 
-    if(!searchValue) { 
+//     if(!searchValue) { 
 
-        return 
-    }
-    search(searchValue) //search
+//         return 
+//     }
+//     search(searchValue) //search
     
         
-})
+// })
 
 
 document.addEventListener('click' , function(event){
