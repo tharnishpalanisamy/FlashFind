@@ -1,14 +1,18 @@
 import { Trie } from "./trie.js";  
 import { words , sites } from "./data.js"; 
-import { levenshtein } from "./utilities.js";  
-let data = JSON.parse(localStorage.getItem('data')) || [...words] 
+import { levenshtein } from "./utilities.js";   
+let data = JSON.parse(localStorage.getItem('data')) || [...words]  
+console.log(data);
 
 const trie = new Trie()  
-for (let word of data) { 
+for (let word of data) {  
     if(typeof word != 'string') {
         continue 
+    } 
+    if(word =='CodePen' ) {
+        console.log('CodePen');
     }
-    trie.insert(word)
+    trie.insert(word) 
 }
 //values 
 const MAX_HISTORY = 50;
@@ -496,42 +500,51 @@ saveBtn.addEventListener("click", saveShortcut);
 
 
 //load all short cuts 
-function loadShortcuts(){
+function loadShortcuts() {
 
     if (shortcuts.length >= 10) {
-        addShortcut.classList.add("d-none"); 
+        addShortcut.classList.add("d-none");
     } else {
         addShortcut.classList.remove("d-none");
     }
-    
 
-    shortcutContainer.innerHTML = '' 
+    shortcutContainer.innerHTML = "";
 
-    shortcuts.forEach(item =>{  
-        const favicon = `https://www.google.com/s2/favicons?domain=${item.url}&sz=64`;  
+    shortcuts.forEach(item => {
 
-        
+        const favicon = `https://www.google.com/s2/favicons?domain=${item.url}&sz=64`;
+
         shortcutContainer.innerHTML += `
             <div class="shortcut" data-url="${item.url}">
-                <img src="${favicon}" class="shortcut-icon" alt="${item.name}">
+
+                <img
+                    src="${favicon}"
+                    class="shortcut-icon"
+                    alt="${item.name}"
+                    loading="lazy"
+                    onerror="this.onerror=null; this.src='./assets/default-icon.png';"
+                >
+
                 <span class="shortcut-text">${item.name}</span>
+
                 <button class="menu-button">
                     <i class="fa-solid fa-ellipsis-vertical menu-icon"></i>
-                </button> 
+                </button>
 
-                <div class="shortcut-menu d-none ">
+                <div class="shortcut-menu d-none">
                     <button class="menu-item edit-btn">
                         Edit shortcut
                     </button>
 
-                    <button class="menu-item delete-btn" data-url = '${item.url}'>
+                    <button class="menu-item delete-btn" data-url="${item.url}">
                         Remove
                     </button>
                 </div>
 
             </div>
-        `
-    })
+        `;
+    });
+
     initSortable();
 }
 

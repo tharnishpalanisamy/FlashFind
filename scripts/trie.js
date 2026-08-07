@@ -11,7 +11,8 @@ export class Trie{
     }
 
     insert(word){ 
-        let cur = this.root 
+        let cur = this.root  
+        word = word.toLowerCase();
         
         for(let c of word) {
             if (!cur.children[c]) {

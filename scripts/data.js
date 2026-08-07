@@ -1,4 +1,105 @@
 export const words = [
+"Google",
+"YouTube",
+"LeetCode",
+"GitHub",
+"Stack Overflow",
+"Reddit",
+"Wikipedia",
+"Amazon",
+"Flipkart",
+"Netflix",
+"Spotify",
+"X",
+"Instagram",
+"Facebook",
+"LinkedIn",
+"npm",
+"MDN",
+"CodePen",
+"DEV Community",
+"Medium",
+"IMDb",
+"Google Maps",
+"ChatGPT",
+"Gemini",
+"Claude",
+"Grok",
+"Perplexity",
+"Microsoft Copilot",
+"Phind",
+"Poe",
+"Hugging Face",
+"Pinterest",
+"Twitch",
+"Discord",
+"Quora",
+"GitLab",
+"Bitbucket",
+"Docker Hub",
+"W3Schools",
+"Hashnode",
+"Dribbble",
+"Behance",
+"Figma",
+"Canva",
+"HackerRank",
+"CodeChef",
+"GeeksforGeeks",
+"Replit",
+"Stack Exchange",
+"Unsplash",
+"Vimeo",
+"Amazon Web Services",
+"Supabase",
+"Firebase",
+"Vercel",
+"Netlify",
+"PyPI",
+"Packagist",
+"Crates.io",
+"Docker Docs",
+"Kubernetes",
+"Notion",
+"Trello",
+"Slack",
+"Freepik",
+"Iconfont",
+"Font Awesome",
+"Tailwind CSS",
+"Bootstrap",
+"Coursera",
+"Udemy",
+"Booking.com",
+"Tripadvisor",
+"Airbnb",
+"Zomato",
+"Swiggy",
+"Yelp",
+"eBay",
+"Walmart",
+"Myntra",
+"Disney+ Hotstar",
+"Prime Video",
+"Crunchyroll",
+"BBC News",
+"CNN",
+"The New York Times",
+"Goodreads",
+"Wattpad",
+"Dictionary.com",
+"The Weather Channel",
+"Project Gutenberg",
+"Ticketmaster",
+"BookMyShow",
+"ESPN",
+"Cricbuzz",
+"Allrecipes",
+"IKEA",
+"ZARA",
+"H&M",
+"Duolingo",
+"National Geographic" , 
   "advertisement",
   "amazon",
   "and",
@@ -380,7 +481,427 @@ export const sites = {
         name: "Hugging Face",
         home: "https://huggingface.co/",
         query: "https://huggingface.co/search/full-text?q="
+    },
+        pinterest: {
+        name: "Pinterest",
+        home: "https://pinterest.com",
+        query: "https://pinterest.comsearch/pins/?q="
+    },
+
+    twitch: {
+        name: "Twitch",
+        home: "https://twitch.tv",
+        query: "https://twitch.tvsearch?term="
+    },
+
+    discord: {
+        name: "Discord",
+        home: "https://discord.com",
+        query: "https://discord.comsearch?q="
+    },
+
+    quora: {
+        name: "Quora",
+        home: "https://quora.com",
+        query: "https://quora.comsearch?q="
+    },
+
+    gitlab: {
+        name: "GitLab",
+        home: "https://gitlab.com",
+        query: "https://gitlab.com"
+    },
+
+    bitbucket: {
+        name: "Bitbucket",
+        home: "https://bitbucket.org",
+        query: "https://bitbucket.orgrepo/all?name="
+    },
+
+    dockerhub: {
+        name: "Docker Hub",
+        home: "https://docker.com",
+        query: "https://docker.comsearch?q="
+    },
+
+    w3schools: {
+        name: "W3Schools",
+        home: "https://w3schools.com",
+        query: "https://google.com+"
+    },
+
+    hashnode: {
+        name: "Hashnode",
+        home: "https://hashnode.com",
+        query: "https://hashnode.comsearch?q="
+    },
+
+    dribbble: {
+        name: "Dribbble",
+        home: "https://dribbble.com",
+        query: "https://dribbble.comsearch/"
+    },
+
+    behance: {
+        name: "Behance",
+        home: "https://behance.net",
+        query: "https://behance.netsearch/projects?search="
+    },
+
+    figma: {
+        name: "Figma",
+        home: "https://figma.com",
+        query: "https://figma.comcommunity/search?q="
+    },
+
+    canva: {
+        name: "Canva",
+        home: "https://canva.com",
+        query: "https://canva.comsearch?q="
+    },
+
+    hackerrank: {
+        name: "HackerRank",
+        home: "https://hackerrank.com",
+        query: "https://hackerrank.comsearch?q="
+    },
+
+    codechef: {
+        name: "CodeChef",
+        home: "https://codechef.com",
+        query: "https://codechef.comsearch/problems?string="
+    },
+
+    geeksforgeeks: {
+        name: "GeeksforGeeks",
+        home: "https://geeksforgeeks.org",
+        query: "https://geeksforgeeks.orgsearch/?q="
+    },
+
+    replit: {
+        name: "Replit",
+        home: "https://replit.com",
+        query: "https://replit.comsearch?q="
+    },
+
+    stackexchange: {
+        name: "Stack Exchange",
+        home: "https://stackexchange.com",
+        query: "https://stackexchange.comsearch?q="
+    },
+
+    unsplash: {
+        name: "Unsplash",
+        home: "https://unsplash.com",
+        query: "https://unsplash.coms/photos/"
+    },
+
+    vimeo: {
+        name: "Vimeo",
+        home: "https://vimeo.com",
+        query: "https://vimeo.comsearch?q="
+    },
+        aws: {
+        name: "Amazon Web Services",
+        home: "https://amazon.com",
+        query: "https://amazon.comsearch/?searchQuery="
+    },
+
+    supabase: {
+        name: "Supabase",
+        home: "https://supabase.com",
+        query: "https://supabase.comdocs/search?q="
+    },
+
+    firebase: {
+        name: "Firebase",
+        home: "https://google.com",
+        query: "https://google.com+"
+    },
+
+    vercel: {
+        name: "Vercel",
+        home: "https://vercel.com",
+        query: "https://vercel.comdocs/search?q="
+    },
+
+    netlify: {
+        name: "Netlify",
+        home: "https://netlify.com",
+        query: "https://netlify.com"
+    },
+
+    pypi: {
+        name: "PyPI",
+        home: "https://pypi.org",
+        query: "https://pypi.orgsearch/?q="
+    },
+
+    packagist: {
+        name: "Packagist",
+        home: "https://packagist.org",
+        query: "https://packagist.orgsearch/?q="
+    },
+
+    crates: {
+        name: "Crates.io",
+        home: "https://crates.io",
+        query: "https://crates.iosearch?q="
+    },
+
+    docker: {
+        name: "Docker Docs",
+        home: "https://docker.com",
+        query: "https://docker.comsearch/?q="
+    },
+
+    kubernetes: {
+        name: "Kubernetes",
+        home: "https://kubernetes.io",
+        query: "https://kubernetes.iosearch/?q="
+    },
+
+    notion: {
+        name: "Notion",
+        home: "https://notion.so",
+        query: "https://google.com+"
+    },
+
+    trello: {
+        name: "Trello",
+        home: "https://trello.com",
+        query: "https://google.com+"
+    },
+
+    slack: {
+        name: "Slack",
+        home: "https://slack.com",
+        query: "https://slack.comintl/en-in/help/search?q="
+    },
+
+    freepik: {
+        name: "Freepik",
+        home: "https://freepik.com",
+        query: "https://freepik.comsearch?query="
+    },
+
+    iconfont: {
+        name: "Iconfont",
+        home: "https://iconfont.cn",
+        query: "https://iconfont.cnsearch/index?searchType=icon&q="
+    },
+
+    fontawesome: {
+        name: "Font Awesome",
+        home: "https://fontawesome.com",
+        query: "https://fontawesome.comsearch?q="
+    },
+
+    tailwinds: {
+        name: "Tailwind CSS",
+        home: "https://tailwindcss.com",
+        query: "https://tailwindcss.comdocs/search?q="
+    },
+
+    bootstrap: {
+        name: "Bootstrap",
+        home: "https://getbootstrap.com",
+        query: "https://getbootstrap.comdocs/5.3/search/?q="
+    },
+
+    coursera: {
+        name: "Coursera",
+        home: "https://coursera.org",
+        query: "https://coursera.orgsearch?query="
+    },
+
+    udemy: {
+        name: "Udemy",
+        home: "https://udemy.com",
+        query: "https://udemy.comcourses/search/?q="
+    },
+        booking: {
+        name: "Booking.com",
+        home: "https://booking.com",
+        query: "https://booking.comsearchresults.html?ss="
+    },
+
+    tripadvisor: {
+        name: "Tripadvisor",
+        home: "https://tripadvisor.com",
+        query: "https://tripadvisor.comSearch?q="
+    },
+
+    airbnb: {
+        name: "Airbnb",
+        home: "https://airbnb.com",
+        query: "https://airbnb.coms/all/insites?query="
+    },
+
+    zomato: {
+        name: "Zomato",
+        home: "https://zomato.com",
+        query: "https://zomato.comsearch?q="
+    },
+
+    swiggy: {
+        name: "Swiggy",
+        home: "https://swiggy.com",
+        query: "https://swiggy.comsearch?query="
+    },
+
+    yelp: {
+        name: "Yelp",
+        home: "https://yelp.com",
+        query: "https://yelp.comsearch?find_desc="
+    },
+
+    ebay: {
+        name: "eBay",
+        home: "https://ebay.com",
+        query: "https://ebay.comsch/i.html?_nkw="
+    },
+
+    walmart: {
+        name: "Walmart",
+        home: "https://walmart.com",
+        query: "https://walmart.comsearch?q="
+    },
+
+    myntra: {
+        name: "Myntra",
+        home: "https://myntra.com",
+        query: "https://myntra.com"
+    },
+
+    hotstar: {
+        name: "Disney+ Hotstar",
+        home: "https://hotstar.com",
+        query: "https://hotstar.comin/explore?search_query="
+    },
+
+    primevideo: {
+        name: "Prime Video",
+        home: "https://primevideo.com",
+        query: "https://primevideo.comregion/eu/storefront/search?phrase="
+    },
+
+    crunchyroll: {
+        name: "Crunchyroll",
+        home: "https://crunchyroll.com",
+        query: "https://crunchyroll.comsearch?q="
+    },
+
+    bbc: {
+        name: "BBC News",
+        home: "https://bbc.com",
+        query: "https://bbc.comsearch?q="
+    },
+
+    cnn: {
+        name: "CNN",
+        home: "https://cnn.com",
+        query: "https://cnn.comsearch?q="
+    },
+
+    nytimes: {
+        name: "The New York Times",
+        home: "https://nytimes.com",
+        query: "https://nytimes.comsearch?query="
+    },
+
+    goodreads: {
+        name: "Goodreads",
+        home: "https://goodreads.com",
+        query: "https://goodreads.comsearch?q="
+    },
+
+    wattpad: {
+        name: "Wattpad",
+        home: "https://wattpad.com",
+        query: "https://wattpad.comsearch/"
+    },
+
+    dictionary: {
+        name: "Dictionary.com",
+        home: "https://dictionary.com",
+        query: "https://dictionary.combrowse/"
+    },
+
+    theweatherchannel: {
+        name: "The Weather Channel",
+        home: "https://weather.com",
+        query: "https://weather.comen-IN/search/enhancedlocalsearch?where="
+    },
+
+    gutenberg: {
+        name: "Project Gutenberg",
+        home: "https://gutenberg.org",
+        query: "https://gutenberg.orgebooks/search/?query="
+    },
+        ticketmaster: {
+        name: "Ticketmaster",
+        home: "https://ticketmaster.com",
+        query: "https://ticketmaster.comsearch?q="
+    },
+
+    bookmyshow: {
+        name: "BookMyShow",
+        home: "https://bookmyshow.com",
+        query: "https://bookmyshow.comexplore/home/?search="
+    },
+
+    espn: {
+        name: "ESPN",
+        home: "https://espn.com",
+        query: "https://espn.comsearch/_/q/"
+    },
+
+    cricbuzz: {
+        name: "Cricbuzz",
+        home: "https://cricbuzz.com",
+        query: "https://google.com+"
+    },
+
+    allrecipes: {
+        name: "Allrecipes",
+        home: "https://allrecipes.com",
+        query: "https://allrecipes.comsearch?q="
+    },
+
+    ikea: {
+        name: "IKEA",
+        home: "https://ikea.com",
+        query: "https://ikea.comin/en/search/?q="
+    },
+
+    zara: {
+        name: "ZARA",
+        home: "https://zara.com",
+        query: "https://zara.comin/en/search?word="
+    },
+
+    hm: {
+        name: "H&M",
+        home: "https://hm.com",
+        query: "https://hm.comen_in/search-results.html?q="
+    },
+
+    duolingo: {
+        name: "Duolingo",
+        home: "https://duolingo.com",
+        query: "https://google.com+"
+    },
+
+    nationalgeographic: {
+        name: "National Geographic",
+        home: "https://nationalgeographic.com",
+        query: "https://google.com+"
     }
+
+
+
+
 };
 
 
