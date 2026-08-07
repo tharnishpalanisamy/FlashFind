@@ -29,7 +29,24 @@ loadHistory(history);
 //icons
 const deletIcons = document.querySelectorAll('.history-delete-btn')
 
+//toaster initialization
+toastr.options = {
+    closeButton: true,
+    progressBar: true,
+    newestOnTop: true,
+    positionClass: "toast-bottom-right",
 
+    preventDuplicates: true,
+
+    showDuration: "300",
+    hideDuration: "300",
+
+    timeOut: "2500",
+    extendedTimeOut: "1000",
+
+    showMethod: "fadeIn",
+    hideMethod: "fadeOut"
+};
 
 //removing the history 
 document.addEventListener("click", (event) => {
@@ -265,7 +282,7 @@ const voiceSearch = document.querySelector(".mic-icon");
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
 if (!SpeechRecognition) {
-    alert("Voice search is not supported in this browser.");
+    toastr.danger("Voice search is not supported in this browser.");
 }
 
 const recognition = new SpeechRecognition();
@@ -327,7 +344,9 @@ const url = document.getElementById('shortcutUrl')
 const cancelBtn = document.querySelector("#cancelBtn");
 const saveBtn = document.querySelector("#saveBtn");
 
-addShortcut.addEventListener("click", () => {  
+addShortcut.addEventListener("click", () => {   
+    name.value = '' 
+    url.value = ''
     modal.classList.remove("hidden");
 }); 
 
@@ -379,6 +398,7 @@ function saveShortcut(){
         return;
     }
 
+    
     // Add https:// if missing
     if (!/^https?:\/\//i.test(website)) {
         website = "https://" + website;
@@ -389,7 +409,7 @@ function saveShortcut(){
     try {
         parsedUrl = new URL(website);
     } catch {
-        alert("Please enter a valid URL.");
+        toastr.warning("Please enter a valid URL.");
         return;
     }
 
@@ -401,7 +421,21 @@ function saveShortcut(){
         hostname.includes(" ") ||
         !hostname.includes(".")
     ) {
-        alert("Please enter a valid website.");
+        toastr.warning("Please enter a valid website.");
+        return;
+    }
+
+    //duplicate
+    const duplicate = shortcuts.some((item, index) => {
+    if (editIndex !== -1 && index === editIndex) {
+        return false; // Ignore the shortcut being edited
+    }
+
+    return item.url === parsedUrl.href;
+    });
+
+    if (duplicate) {
+        toastr.warning("Shortcut already exists!");
         return;
     }
 
@@ -420,6 +454,15 @@ function saveShortcut(){
     localStorage.setItem("shortcuts", JSON.stringify(shortcuts));
 
     loadShortcuts();
+
+    if (editIndex === -1) {
+        shortcuts.push(shortcut);
+        toastr.success("Shortcut added successfully!");
+    } else {
+        shortcuts[editIndex] = shortcut;
+        toastr.success("Shortcut updated successfully!");
+        editIndex = -1;
+    }
 
     name.value = "";
     url.value = "";
@@ -521,6 +564,8 @@ let currentShortcut ;
 document.addEventListener('click' , function(event){ 
     closeShortcutMenu()
     if(event.target.classList.contains('menu-button') || event.target.classList.contains('menu-icon')) { 
+        currentShortcut = event.target.closest('.shortcut')
+        
         closeShortcutMenu() 
         let item = event.target.closest('.shortcut') 
         item.querySelector('.shortcut-menu').classList.remove('d-none')
@@ -530,24 +575,27 @@ document.addEventListener('click' , function(event){
         currentShortcut = event.target.closest('.shortcut') 
         let data = shortcuts.filter(item => item.url == currentShortcut.dataset.url )  
         
-        if (event.target.classList.contains("edit-btn")) { 
+        if (event.target.classList.contains("edit-btn")) {  
+            console.log('hi');
+            
             saveBtn.classList.add('active-btn')
             modal.classList.remove("hidden");
-
+            console.log(currentShortcut.dataset.url);
+            
             editIndex = shortcuts.findIndex(
                 item => item.url === currentShortcut.dataset.url
             );
 
             name.value = shortcuts[editIndex].name;
-            url.value = shortcuts[editIndex].url; 
+            url.value = shortcuts[editIndex].url;  
 
-            document.addEventListener('click' , function(event){
-                if(!event.target.closest('.shortcut-modal')) {
-                    name.value = '' 
-                    url.value = ''
-                }
+            // document.addEventListener('click' , function(event){
+            //     if(!event.target.closest('.shortcut-modal')) {
+            //         name.value = '' 
+            //         url.value = ''
+            //     }
                 
-            })
+            // })
         }
         else if(event.target.classList.contains("delete-btn")) {
             

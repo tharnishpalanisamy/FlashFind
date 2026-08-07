@@ -798,3 +798,7 @@ body {
     opacity:1;
     pointer-events:auto;
 }
+
+.toast {
+    box-shadow: none !important;
+}
