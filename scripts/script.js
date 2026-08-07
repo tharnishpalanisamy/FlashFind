@@ -12,7 +12,6 @@ for (let word of data) {
     }
     trie.insert(word)
 }
-
 //values 
 const MAX_HISTORY = 50;
 let history = JSON.parse(localStorage.getItem('history')) ||  [] 
@@ -115,7 +114,7 @@ searchBar.addEventListener('input' , function(){
         loadHistory(history) 
         return 
     }
-     
+    
     suggestions = trie.suggest(searchValue) 
 
     if(suggestions.length > 0) {
@@ -416,7 +415,7 @@ function loadShortcuts(){
 
     shortcutContainer.innerHTML = '' 
 
-    shortcuts.forEach(item =>{ 
+    shortcuts.forEach(item =>{  
         const favicon = `https://www.google.com/s2/favicons?domain=${item.url}&sz=64`;  
 
         
@@ -511,10 +510,13 @@ document.addEventListener('mouseover' , function(event){
     document.querySelectorAll('.menu-button').forEach(item=>{
             item.classList.add('d-none')
         })
-    if(event.target.closest('.shortcut')) { 
+    if(event.target.closest('.shortcut') && !(event.target.closest('add-shortcut'))) { 
         document.querySelectorAll('.menu-button').forEach(item=>{
             item.classList.add('d-none')
         })
+        const shortcut = event.target.closest('.shortcut'); 
+        console.log(shortcut);
+        console.log(shortcut.querySelector('.menu-button'));
         event.target.closest('.shortcut').querySelector('.menu-button').classList.remove('d-none')
         
     }

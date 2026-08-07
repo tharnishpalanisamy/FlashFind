@@ -492,12 +492,12 @@ body {
 }
 
 .add-icon{
-    padding: 25px;
+    padding: 22px;
     background-color: #4D5156;
     border-radius: 50%;   
     color: #FFFFFF; 
-    width: 10px; 
-    height: 10px; 
+    width: 8px; 
+    height: 8px; 
     font-size: 16px;
     display: flex; 
     justify-content: center; 
@@ -538,7 +538,7 @@ body {
 
 }
 
-.shortcut { 
+.shortcut , .add-shortcut { 
     cursor: pointer ;    
     display: flex; 
     flex-direction: column; 
@@ -551,7 +551,7 @@ body {
 
 }
 
-.shortcut:hover{
+.shortcut:hover , .add-shortcut:hover{
     background: rgba(77, 81, 86, 0.4); 
 }
 
@@ -635,7 +635,8 @@ body {
     border: none ;
     padding: 5px 12px; 
     cursor: pointer; 
-    border-radius: 50%;
+    border-radius: 50%; 
+    transition: .3s;
 } 
 
 .menu-button:hover{
@@ -748,4 +749,16 @@ body {
 
 .menu-button{
     transition: 0.5s;
+}
+
+.shortcut {
+    cursor: pointer;
+}
+
+.shortcut:active {
+    cursor: grabbing;
+}
+
+.dragging {
+    opacity: .4;
 }
