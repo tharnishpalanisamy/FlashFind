@@ -250,7 +250,7 @@ if (!SpeechRecognition) {
 
 const recognition = new SpeechRecognition();
 
-recognition.lang = "en-US";
+recognition.lang = "ta";
 recognition.interimResults = false;
 recognition.maxAlternatives = 1;
 
@@ -440,7 +440,45 @@ function loadShortcuts(){
             </div>
         `
     })
+    initSortable();
 }
+
+//drag and drop 
+
+let sortable;
+
+function initSortable() {
+
+    if (sortable) {
+        sortable.destroy();
+    }
+
+    sortable = new Sortable(shortcutContainer, {
+
+        animation: 180,
+        ghostClass: "shortcut-ghost",
+        chosenClass: "shortcut-chosen",
+        dragClass: "shortcut-drag",
+
+        onEnd(evt) {
+
+            if (evt.oldIndex === evt.newIndex) return;
+
+            const movedItem = shortcuts.splice(evt.oldIndex, 1)[0];
+
+            shortcuts.splice(evt.newIndex, 0, movedItem);
+
+            localStorage.setItem(
+                "shortcuts",
+                JSON.stringify(shortcuts)
+            );
+        }
+
+    });
+
+}
+
+
 
 loadShortcuts()
 
@@ -499,26 +537,8 @@ document.addEventListener('click' , function(event){
             return 
         }
         let url = event.target.closest('.shortcut').dataset.url
-        window.open(url, '_blank')
+        window.open(url)
     }
 })
 
 
-//shortcut menu  
-
-document.addEventListener('mouseover' , function(event){
-    document.querySelectorAll('.menu-button').forEach(item=>{
-            item.classList.add('d-none')
-        })
-    if(event.target.closest('.shortcut') && !(event.target.closest('add-shortcut'))) { 
-        document.querySelectorAll('.menu-button').forEach(item=>{
-            item.classList.add('d-none')
-        })
-        const shortcut = event.target.closest('.shortcut'); 
-        console.log(shortcut);
-        console.log(shortcut.querySelector('.menu-button'));
-        event.target.closest('.shortcut').querySelector('.menu-button').classList.remove('d-none')
-        
-    }
-    
-})

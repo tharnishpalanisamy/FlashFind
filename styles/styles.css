@@ -753,6 +753,10 @@ body {
 
 .shortcut {
     cursor: pointer;
+} 
+
+.shortcut:hover{
+    cursor: pointer;
 }
 
 .shortcut:active {
@@ -761,4 +765,36 @@ body {
 
 .dragging {
     opacity: .4;
+}
+
+.shortcut{
+    cursor: grab;
+    user-select: none;
+}
+
+.shortcut:active{
+    cursor: grabbing;
+}
+
+.shortcut-ghost{
+    opacity:.35;
+}
+
+.shortcut-chosen{
+    transform:scale(1.05);
+}
+
+.shortcut-drag{
+    transform:rotate(2deg);
+}
+
+.menu-button{
+    opacity:0;
+    pointer-events:none;
+    transition:.15s;
+}
+
+.shortcut:hover .menu-button{
+    opacity:1;
+    pointer-events:auto;
 }
