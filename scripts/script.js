@@ -347,6 +347,7 @@ const saveBtn = document.querySelector("#saveBtn");
 addShortcut.addEventListener("click", () => {   
     name.value = '' 
     url.value = ''
+    editIndex = -1 
     modal.classList.remove("hidden");
 }); 
 
@@ -427,11 +428,13 @@ function saveShortcut(){
 
     //duplicate
     const duplicate = shortcuts.some((item, index) => {
-    if (editIndex !== -1 && index === editIndex) {
-        return false; // Ignore the shortcut being edited
-    }
 
-    return item.url === parsedUrl.href;
+    // Ignore the shortcut we're editing
+    if (index === editIndex)
+        return false;
+
+        return item.url === parsedUrl.href;
+
     });
 
     if (duplicate) {
@@ -445,17 +448,6 @@ function saveShortcut(){
     };
 
     if (editIndex === -1) {
-        shortcuts.push(shortcut);    
-    } else {
-        shortcuts[editIndex] = shortcut; 
-        editIndex = -1;
-    }
-
-    localStorage.setItem("shortcuts", JSON.stringify(shortcuts));
-
-    loadShortcuts();
-
-    if (editIndex === -1) {
         shortcuts.push(shortcut);
         toastr.success("Shortcut added successfully!");
     } else {
@@ -463,6 +455,13 @@ function saveShortcut(){
         toastr.success("Shortcut updated successfully!");
         editIndex = -1;
     }
+    
+
+    localStorage.setItem("shortcuts", JSON.stringify(shortcuts));
+
+    loadShortcuts();
+
+    
 
     name.value = "";
     url.value = "";
