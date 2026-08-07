@@ -36,11 +36,12 @@ FlashFind is a modern, lightning-fast search homepage that combines web search, 
 
 ## 📸 Preview
 
-> Add screenshots or GIFs here
 
 ```
-/assets/screenshots/home.png
-/assets/screenshots/suggestion.png
+
+![Home Screen](./assets/screenshots/home.png)
+![Suggestion Screen](./assets/screenshots/suggestion.png)
+
 ```
 
 ---
