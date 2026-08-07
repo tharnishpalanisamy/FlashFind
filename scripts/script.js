@@ -6,9 +6,7 @@ let data = JSON.parse(localStorage.getItem('data')) || [...words]
 const trie = new Trie()  
 for (let word of data) { 
     if(typeof word != 'string') {
-        console.log('imp' , word); 
         continue 
-        
     }
     trie.insert(word)
 }
@@ -132,7 +130,6 @@ searchBar.addEventListener('input' , function(){
         }
         handleTypo(data)
     }
-    console.log(suggestions);
     
 })
 
@@ -153,7 +150,6 @@ function search(value){
     trie.insert(value) 
     data.push(value) 
     localStorage.setItem('data' , JSON.stringify(data) )
-    console.log(history);  
     localStorage.setItem('history' , JSON.stringify(history)) 
     loadHistory(suggestions)
 
@@ -211,11 +207,9 @@ searchForm.addEventListener("submit", (e) => {
 //     } 
 
 //     else if(event.key == 'ArrowUp') {
-//         console.log('hi');
         
 //     }
 //     else if(event.key == 'ArrowDown0') {
-//         console.log('bye')
 //     }
 // } ) 
 
@@ -236,7 +230,6 @@ document.addEventListener('click' , function(event){
     if(event.target.closest('.history-item')) { 
 
         if(event.target.closest('.history-delete-btn')){
-            console.log('hi') ; 
             return 
             
         }
@@ -309,7 +302,6 @@ recognition.addEventListener("end", () => {
 
 // Handle errors
 recognition.addEventListener("error", (event) => {
-    console.log(event.error);
     isListening = false;
     voiceSearch.classList.remove("listening");
 });
@@ -342,7 +334,6 @@ addShortcut.addEventListener("click", () => {
 //handle enter to save shortcut 
 document.addEventListener('keydown' , function(event) {
     if(event.key == 'Enter') { 
-        console.log('hi');
         
         saveShortcut() 
     }
@@ -447,7 +438,6 @@ function loadShortcuts(){
     } else {
         addShortcut.classList.remove("d-none");
     }
-    console.log(shortcuts);
     
 
     shortcutContainer.innerHTML = '' 
@@ -539,7 +529,6 @@ document.addEventListener('click' , function(event){
     else if(event.target.closest('.shortcut-menu')) { 
         currentShortcut = event.target.closest('.shortcut') 
         let data = shortcuts.filter(item => item.url == currentShortcut.dataset.url )  
-        console.log('data' , data[0]);  
         
         if (event.target.classList.contains("edit-btn")) { 
             saveBtn.classList.add('active-btn')
