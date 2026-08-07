@@ -37,12 +37,10 @@ FlashFind is a modern, lightning-fast search homepage that combines web search, 
 ## 📸 Preview
 
 
-```
-
 ![Home Screen](./assets/screenshots/home.png)
 ![Suggestion Screen](./assets/screenshots/suggestion.png)
+![spell correction Screen](./assets/screenshots/correction.png)
 
-```
 
 ---
 

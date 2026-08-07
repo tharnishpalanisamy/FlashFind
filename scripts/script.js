@@ -146,7 +146,7 @@ searchBar.addEventListener('input' , function(){
         for(let i = 0 ; i < prevSuggestions.length ; i++) {
             let word = prevSuggestions[i]  
             let value = levenshtein(searchValue , word) 
-            if(value <= 3) {
+            if(value <= 2) {
                 data.push(word)
             }
         }
